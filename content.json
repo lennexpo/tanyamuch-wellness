@@ -1,0 +1,97 @@
+{
+  "site": {
+    "name": "TanyaMuch Wellness",
+    "tagline": "Your mental health is our concern.",
+    "footer_copy": "© 2026 TanyaMuch Wellness Mental Clinic. 1074 Cnr Masotsha Ndhlovu/6th Avenue, Parktown, Waterfalls, Harare, Zimbabwe"
+  },
+  "contact": {
+    "phone_display": "0715 472 411",
+    "phone_href": "2630715472411",
+    "whatsapp_number": "2630715472411",
+    "email": "enquiries@tanyamuchwellness.co.zw",
+    "address": "1074 Cnr Masotsha Ndhlovu/6th Avenue, Parktown, Waterfalls, Harare, Zimbabwe"
+  },
+  "hours": {
+    "weekdays": "Monday – Friday: 8:00 AM – 6:00 PM",
+    "saturday": "Saturday: By appointment"
+  },
+  "hero": {
+    "tag": "Now accepting new clients — Waterfalls, Harare",
+    "heading_line1": "Your mental health",
+    "heading_line2": "is our concern.",
+    "subtext": "Do not suffer in silence. Come and share — we listen. Professional, ethically sound, and evidence-based psychological services in the heart of Harare."
+  },
+  "services": [
+    {
+      "title": "Individual Counselling",
+      "description": "One-on-one sessions tailored to your unique challenges — from anxiety and career decisions to fear, mood swings, and life transitions."
+    },
+    {
+      "title": "Couples & Relationship Therapy",
+      "description": "Rebuild trust, improve communication, and heal together. We guide couples through conflict, disconnection, and growth."
+    },
+    {
+      "title": "Depression Therapy",
+      "description": "Because even the strongest need someone to talk to. We help you rediscover purpose, joy, and emotional balance."
+    },
+    {
+      "title": "Marital Counselling",
+      "description": "Strengthen your marriage with professional guidance. Navigate challenges with clarity, empathy, and renewed commitment."
+    },
+    {
+      "title": "Trauma & Grief Counselling",
+      "description": "Process loss, trauma, and difficult life events in a safe, non-judgmental space with compassionate professional support."
+    },
+    {
+      "title": "Personal Growth & Wellness",
+      "description": "Even without a crisis, therapy helps. Build resilience, self-awareness, and the tools to live your best life."
+    }
+  ],
+  "why": {
+    "heading": "Care that goes beyond the session",
+    "body": "We believe mental healthcare should be accessible, dignified, and genuinely transformative. Every client who walks through our doors is seen, heard, and met with unconditional professional care.",
+    "points": [
+      {
+        "title": "Ethically Sound Practice",
+        "body": "All our services adhere to the highest professional and ethical standards in psychological care."
+      },
+      {
+        "title": "Evidence-Based Methods",
+        "body": "We use clinically proven therapeutic approaches, not guesswork. Real results grounded in research."
+      },
+      {
+        "title": "Safe & Confidential Space",
+        "body": "What you share stays with us. Your privacy and emotional safety are our foremost priority."
+      }
+    ]
+  },
+  "steps": [
+    {
+      "title": "Initial Consultation",
+      "body": "A warm, judgment-free conversation to understand your needs and set the right therapeutic direction."
+    },
+    {
+      "title": "Personalised Plan",
+      "body": "We craft a tailored therapy plan aligned with your specific goals, challenges, and circumstances."
+    },
+    {
+      "title": "Ongoing Sessions",
+      "body": "Consistent, meaningful sessions where real healing and transformation take place."
+    },
+    {
+      "title": "Growth & Flourishing",
+      "body": "We walk with you until you have the tools, confidence, and clarity to thrive independently."
+    }
+  ],
+  "testimonials": [
+    {
+      "text": "I walked in feeling completely broken. The team at TanyaMuch Wellness gave me a safe space to fall apart — and then helped me rebuild, stronger than ever. I am genuinely grateful.",
+      "name": "— Anonymous Client",
+      "role": "Individual Counselling, Harare"
+    }
+  ],
+  "cta": {
+    "heading": "Ready to take the first step?",
+    "body": "You don't have to face this alone. Reach out today — no judgment, just compassionate professional support."
+  }
+}

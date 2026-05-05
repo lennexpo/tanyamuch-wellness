@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TanyaMuch Admin</title>
+<style>
+/* ─── TOKENS ─── */
+:root {
+  --sage: #4A7C6F;
+  --sage-d: #2E5A50;
+  --sage-l: #7AAE9E;
+  --sage-xl: #EAF4F1;
+  --ink: #1A1A2E;
+  --ink-3: #5A6490;
+  --slate: #8892B0;
+  --white: #FFFFFF;
+  --off: #F6F8F7;
+  --border: #D9E5E1;
+  --red: #C0392B;
+  --gold: #C8A96E;
+  --sidebar-w: 220px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:var(--off);color:var(--ink)}
+a{color:var(--sage);text-decoration:none}
+
+/* ─── LOGIN ─── */
+#login-screen{
+  display:flex;align-items:center;justify-content:center;
+  height:100vh;background:var(--ink);
+}
+.login-box{
+  background:white;border-radius:16px;padding:2.5rem 2rem;width:320px;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+.login-logo{
+  display:flex;align-items:center;gap:.6rem;margin-bottom:1.75rem;
+}
+.login-logo .dot{
+  width:32px;height:32px;background:var(--sage);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+.login-logo .dot svg{stroke:white;width:16px;height:16px;}
+.login-logo strong{font-size:1rem;font-weight:600;color:var(--ink)}
+.login-logo span{font-size:.72rem;color:var(--slate);display:block;margin-top:1px}
+.login-box h2{font-size:1.35rem;font-weight:600;color:var(--ink);margin-bottom:.35rem}
+.login-box p{font-size:.82rem;color:var(--slate);margin-bottom:1.5rem}
+.field{margin-bottom:1rem}
+.field label{display:block;font-size:.78rem;font-weight:600;color:var(--ink-3);margin-bottom:.35rem;text-transform:uppercase;letter-spacing:.05em}
+.field input,.field select,.field textarea{
+  width:100%;padding:.6rem .85rem;border:1.5px solid var(--border);border-radius:8px;
+  font-size:.9rem;color:var(--ink);background:white;outline:none;
+  transition:border-color .2s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--sage)}
+.field textarea{resize:vertical;min-height:80px;line-height:1.55}
+.btn-primary{
+  width:100%;padding:.7rem;background:var(--sage);color:white;border:none;
+  border-radius:8px;font-size:.92rem;font-weight:600;cursor:pointer;
+  transition:background .2s;
+}
+.btn-primary:hover{background:var(--sage-d)}
+.err-msg{color:var(--red);font-size:.8rem;margin-top:.6rem;display:none}
+
+/* ─── APP SHELL ─── */
+#app{display:none;height:100vh;overflow:hidden;flex-direction:column}
+#app.visible{display:flex}
+
+/* ─── TOP BAR ─── */
+.topbar{
+  background:var(--ink);color:white;height:52px;
+  display:flex;align-items:center;padding:0 1.25rem;
+  flex-shrink:0;gap:1rem;
+}
+.topbar-logo{
+  display:flex;align-items:center;gap:.5rem;
+  font-size:.88rem;font-weight:700;letter-spacing:.04em;
+}
+.topbar-logo .tl-dot{
+  width:22px;height:22px;background:var(--sage);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;
+}
+.topbar-divider{width:1px;height:24px;background:rgba(255,255,255,.15)}
+.topbar-page{font-size:.78rem;color:rgba(255,255,255,.5);flex:1}
+.topbar-status{
+  font-size:.75rem;padding:.2rem .65rem;border-radius:100px;
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.55);
+}
+.topbar-status.ok{background:rgba(74,124,111,.25);color:var(--sage-l)}
+.topbar-status.err{background:rgba(192,57,43,.25);color:#e97c72}
+
+.btn-publish{
+  background:var(--sage);color:white;border:none;padding:.4rem 1rem;
+  border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;
+  transition:background .2s;display:flex;align-items:center;gap:.4rem;
+}
+.btn-publish:hover{background:var(--sage-d)}
+.btn-publish svg{width:14px;height:14px;stroke:white;fill:none;stroke-width:2.2}
+
+.btn-logout{
+  background:none;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);
+  padding:.35rem .75rem;border-radius:6px;font-size:.75rem;cursor:pointer;
+  transition:all .2s;
+}
+.btn-logout:hover{border-color:rgba(255,255,255,.4);color:white}
+
+/* ─── MAIN LAYOUT ─── */
+.main-layout{display:flex;flex:1;overflow:hidden}
+
+/* ─── SIDEBAR ─── */
+.sidebar{
+  width:var(--sidebar-w);background:white;border-right:1px solid var(--border);
+  overflow-y:auto;flex-shrink:0;
+}
+.sidebar-section{padding:.75rem .75rem .25rem;font-size:.65rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--slate)}
+.nav-item{
+  display:flex;align-items:center;gap:.6rem;padding:.55rem .85rem;
+  border-radius:8px;margin:0 .4rem .15rem;cursor:pointer;
+  font-size:.83rem;color:var(--ink-3);transition:all .15s;
+}
+.nav-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.nav-item:hover{background:var(--sage-xl);color:var(--sage-d)}
+.nav-item.active{background:var(--sage-xl);color:var(--sage-d);font-weight:600}
+
+/* ─── CONTENT ─── */
+.content-area{flex:1;overflow-y:auto;padding:1.75rem 2rem}
+.section-panel{display:none}
+.section-panel.active{display:block}
+.panel-header{margin-bottom:1.5rem}
+.panel-header h1{font-size:1.25rem;font-weight:700;color:var(--ink)}
+.panel-header p{font-size:.82rem;color:var(--slate);margin-top:.25rem}
+
+.card{background:white;border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1rem}
+.card-title{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--slate);margin-bottom:1rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+@media(max-width:700px){.grid-2{grid-template-columns:1fr}}
+
+/* Service / step rows */
+.svc-block{background:var(--off);border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem;margin-bottom:.75rem}
+.svc-block-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--sage-d);margin-bottom:.6rem}
+
+/* Image upload */
+.img-upload-area{
+  border:2px dashed var(--border);border-radius:10px;padding:1.5rem;
+  text-align:center;cursor:pointer;transition:border-color .2s;position:relative;
+  background:var(--off);
+}
+.img-upload-area:hover{border-color:var(--sage)}
+.img-upload-area input[type=file]{
+  position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
+}
+.img-upload-area img{max-height:80px;max-width:100%;margin:0 auto .6rem;display:block;border-radius:6px}
+.img-upload-area p{font-size:.8rem;color:var(--slate)}
+.img-upload-area strong{font-size:.78rem;color:var(--sage);display:block;margin-top:.3rem}
+
+/* Settings */
+.settings-note{
+  background:#FEF9E7;border:1px solid #F7DC6F;border-radius:8px;
+  padding:.8rem 1rem;font-size:.8rem;color:#7D6608;margin-bottom:1rem;
+  line-height:1.55;
+}
+.settings-note strong{color:#6E5E08}
+
+/* Toast */
+#toast{
+  position:fixed;bottom:1.5rem;right:1.5rem;
+  background:var(--sage-d);color:white;
+  padding:.75rem 1.25rem;border-radius:10px;
+  font-size:.85rem;font-weight:500;
+  transform:translateY(100px);opacity:0;
+  transition:all .3s;z-index:9999;
+  box-shadow:0 8px 24px rgba(0,0,0,.2);
+  pointer-events:none;
+}
+#toast.show{transform:translateY(0);opacity:1}
+#toast.error{background:var(--red)}
+
+/* Divider */
+.divider{height:1px;background:var(--border);margin:.75rem 0}
+
+.hint{font-size:.75rem;color:var(--slate);margin-top:.3rem}
+.badge-saved{
+  display:inline-flex;align-items:center;gap:.3rem;
+  font-size:.72rem;color:var(--sage-d);background:var(--sage-xl);
+  padding:.2rem .55rem;border-radius:100px;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══════════════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="dot">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div>
+        <strong>TanyaMuch Admin</strong>
+        <span>Content Management</span>
+      </div>
+    </div>
+    <h2>Welcome back</h2>
+    <p>Enter your admin password to manage site content.</p>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="pw-input" placeholder="Enter password" />
+    </div>
+    <button class="btn-primary" onclick="doLogin()">Sign In</button>
+    <p class="err-msg" id="login-err">Incorrect password. Try again.</p>
+  </div>
+</div>
+
+<!-- ═══ APP ══════════════════════════════════════════════════ -->
+<div id="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="tl-dot">TM</div>
+      TanyaMuch CMS
+    </div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-page" id="topbar-page">General Info</div>
+    <span class="topbar-status" id="pub-status">Not published</span>
+    <button class="btn-publish" onclick="publishChanges()">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      Publish Changes
+    </button>
+    <button class="btn-logout" onclick="doLogout()">Sign out</button>
+  </div>
+
+  <div class="main-layout">
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <div class="sidebar-section">Content</div>
+      <div class="nav-item active" onclick="showSection('general',this)">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        General Info
+      </div>
+      <div class="nav-item" onclick="showSection('contact',this)">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.61 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.58a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Contact & Hours
+      </div>
+      <div class="nav-item" onclick="showSection('hero',this)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+        Homepage Hero
+      </div>
+      <div class="nav-item" onclick="showSection('services',this)">
+        <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Services
+      </div>
+      <div class="nav-item" onclick="showSection('why',this)">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Why Us
+      </div>
+      <div class="nav-item" onclick="showSection('approach',this)">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Process Steps
+      </div>
+      <div class="nav-item" onclick="showSection('testimonials',this)">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Testimonials
+      </div>
+      <div class="nav-item" onclick="showSection('cta',this)">
+        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Call to Action
+      </div>
+      <div class="nav-item" onclick="showSection('images',this)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Images
+      </div>
+      <div class="sidebar-section">System</div>
+      <div class="nav-item" onclick="showSection('settings',this)">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        GitHub Settings
+      </div>
+      <div class="nav-item" onclick="showSection('password',this)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Change Password
+      </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="content-area">
+
+      <!-- GENERAL -->
+      <div id="sec-general" class="section-panel active">
+        <div class="panel-header">
+          <h1>General Info</h1>
+          <p>Site name, tagline and footer text that appears on all pages.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Site Identity</div>
+          <div class="field">
+            <label>Clinic Name</label>
+            <input type="text" id="site-name" />
+          </div>
+          <div class="field">
+            <label>Tagline (footer)</label>
+            <input type="text" id="site-tagline" />
+          </div>
+          <div class="field">
+            <label>Footer Copyright Text</label>
+            <textarea id="site-footer" rows="2"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACT -->
+      <div id="sec-contact" class="section-panel">
+        <div class="panel-header">
+          <h1>Contact & Hours</h1>
+          <p>Phone, email, address and business hours used across all pages.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Contact Details</div>
+          <div class="grid-2">
+            <div class="field">
+              <label>Phone (display)</label>
+              <input type="text" id="ct-phone" placeholder="0715 472 411" />
+              <div class="hint">Shown as text on the site</div>
+            </div>
+            <div class="field">
+              <label>Phone (dial format)</label>
+              <input type="text" id="ct-phone-href" placeholder="2630715472411" />
+              <div class="hint">Used in tel: links — no spaces or + sign</div>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label>WhatsApp Number</label>
+              <input type="text" id="ct-whatsapp" placeholder="2630715472411" />
+              <div class="hint">No spaces or + sign</div>
+            </div>
+            <div class="field">
+              <label>Email Address</label>
+              <input type="email" id="ct-email" />
+            </div>
+          </div>
+          <div class="field">
+            <label>Physical Address</label>
+            <input type="text" id="ct-address" />
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Business Hours</div>
+          <div class="field">
+            <label>Weekdays</label>
+            <input type="text" id="hr-weekdays" placeholder="Monday – Friday: 8:00 AM – 6:00 PM" />
+          </div>
+          <div class="field">
+            <label>Saturday</label>
+            <input type="text" id="hr-saturday" placeholder="Saturday: By appointment" />
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO -->
+      <div id="sec-hero" class="section-panel">
+        <div class="panel-header">
+          <h1>Homepage Hero</h1>
+          <p>The large banner section at the top of the home page.</p>
+        </div>
+        <div class="card">
+          <div class="field">
+            <label>Announcement Tag</label>
+            <input type="text" id="hero-tag" placeholder="Now accepting new clients — Waterfalls, Harare" />
+            <div class="hint">Small text shown in the green pill above the heading</div>
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label>Heading Line 1</label>
+              <input type="text" id="hero-h1" />
+            </div>
+            <div class="field">
+              <label>Heading Line 2 (italic/green)</label>
+              <input type="text" id="hero-h2" />
+            </div>
+          </div>
+          <div class="field">
+            <label>Subtext</label>
+            <textarea id="hero-sub" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVICES -->
+      <div id="sec-services" class="section-panel">
+        <div class="panel-header">
+          <h1>Services</h1>
+          <p>The six service cards shown on the home and services pages.</p>
+        </div>
+        <div id="svc-list"></div>
+      </div>
+
+      <!-- WHY -->
+      <div id="sec-why" class="section-panel">
+        <div class="panel-header">
+          <h1>Why Us</h1>
+          <p>The green background section explaining your practice's values.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Section Heading</div>
+          <div class="field">
+            <label>Heading</label>
+            <input type="text" id="why-h" />
+          </div>
+          <div class="field">
+            <label>Body Text</label>
+            <textarea id="why-body" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Three Value Points</div>
+          <div id="why-points-list"></div>
+        </div>
+      </div>
+
+      <!-- APPROACH -->
+      <div id="sec-approach" class="section-panel">
+        <div class="panel-header">
+          <h1>Process Steps</h1>
+          <p>The four steps shown in the "How we walk this journey with you" section.</p>
+        </div>
+        <div class="card" id="steps-list"></div>
+      </div>
+
+      <!-- TESTIMONIALS -->
+      <div id="sec-testimonials" class="section-panel">
+        <div class="panel-header">
+          <h1>Testimonials</h1>
+          <p>Client testimonials shown on the home page.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Testimonial 1</div>
+          <div class="field">
+            <label>Quote Text</label>
+            <textarea id="t1-text" rows="4"></textarea>
+            <div class="hint">Don't include the quotation marks — they are added automatically.</div>
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label>Client Name / Label</label>
+              <input type="text" id="t1-name" placeholder="— Anonymous Client" />
+            </div>
+            <div class="field">
+              <label>Role / Context</label>
+              <input type="text" id="t1-role" placeholder="Individual Counselling, Harare" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div id="sec-cta" class="section-panel">
+        <div class="panel-header">
+          <h1>Call to Action</h1>
+          <p>The dark section at the bottom of the home page with the booking button.</p>
+        </div>
+        <div class="card">
+          <div class="field">
+            <label>Heading</label>
+            <input type="text" id="cta-h" />
+          </div>
+          <div class="field">
+            <label>Body Text</label>
+            <textarea id="cta-p" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMAGES -->
+      <div id="sec-images" class="section-panel">
+        <div class="panel-header">
+          <h1>Images</h1>
+          <p>Replace the site logo. Changes are committed directly to your GitHub repository.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Logo (transparent background)</div>
+          <p style="font-size:.8rem;color:var(--slate);margin-bottom:1rem">
+            This replaces <code>tanyamuch_logo_transparent.png</code> in your repo. Use PNG with transparency.
+          </p>
+          <div class="img-upload-area" id="logo-upload-area">
+            <input type="file" id="logo-file" accept="image/png,image/jpeg,image/webp" onchange="previewImage(this,'logo-preview','logo-upload-area')">
+            <img id="logo-preview" src="" style="display:none" />
+            <p>Click to select a new logo image</p>
+            <strong>PNG recommended · transparent background</strong>
+          </div>
+          <button class="btn-primary" style="width:auto;margin-top:.75rem;padding:.5rem 1.25rem;font-size:.82rem" onclick="uploadImage('logo-file','tanyamuch_logo_transparent.png')">Upload Logo</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Favicon Icon</div>
+          <p style="font-size:.8rem;color:var(--slate);margin-bottom:1rem">
+            This replaces <code>favicon_icon.png</code>. Should be a square image.
+          </p>
+          <div class="img-upload-area" id="fav-upload-area">
+            <input type="file" id="fav-file" accept="image/png,image/ico" onchange="previewImage(this,'fav-preview','fav-upload-area')">
+            <img id="fav-preview" src="" style="display:none" />
+            <p>Click to select a favicon image</p>
+            <strong>PNG · 128×128px recommended</strong>
+          </div>
+          <button class="btn-primary" style="width:auto;margin-top:.75rem;padding:.5rem 1.25rem;font-size:.82rem" onclick="uploadImage('fav-file','favicon_icon.png')">Upload Favicon</button>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="sec-settings" class="section-panel">
+        <div class="panel-header">
+          <h1>GitHub Settings</h1>
+          <p>Required to publish changes to your live site.</p>
+        </div>
+        <div class="settings-note">
+          <strong>How to get a Personal Access Token:</strong><br>
+          Go to GitHub → Settings → Developer Settings → Personal Access Tokens → Fine-grained tokens → Generate new token.
+          Give it <strong>read and write access to Contents</strong> of your repository only. No other permissions needed.
+        </div>
+        <div class="card">
+          <div class="grid-2">
+            <div class="field">
+              <label>GitHub Username (repo owner)</label>
+              <input type="text" id="gh-owner" placeholder="lennexpo" />
+            </div>
+            <div class="field">
+              <label>Repository Name</label>
+              <input type="text" id="gh-repo" placeholder="tanyamuch-wellness" />
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label>Branch</label>
+              <input type="text" id="gh-branch" placeholder="main" />
+            </div>
+            <div class="field">
+              <label>Personal Access Token</label>
+              <input type="password" id="gh-pat" placeholder="github_pat_..." />
+            </div>
+          </div>
+          <button class="btn-primary" style="width:auto;padding:.55rem 1.4rem;font-size:.85rem" onclick="saveSettings()">Save Settings</button>
+        </div>
+      </div>
+
+      <!-- PASSWORD -->
+      <div id="sec-password" class="section-panel">
+        <div class="panel-header">
+          <h1>Change Password</h1>
+          <p>Update your admin login password.</p>
+        </div>
+        <div class="card">
+          <div class="field">
+            <label>New Password</label>
+            <input type="password" id="new-pw" />
+          </div>
+          <div class="field">
+            <label>Confirm Password</label>
+            <input type="password" id="new-pw2" />
+          </div>
+          <button class="btn-primary" style="width:auto;padding:.55rem 1.4rem;font-size:.85rem" onclick="changePassword()">Update Password</button>
+          <p class="err-msg" id="pw-change-err" style="display:none"></p>
+        </div>
+      </div>
+
+    </div><!-- /content-area -->
+  </div><!-- /main-layout -->
+</div><!-- /app -->
+
+<div id="toast"></div>
+
+<script>
+/* ═══ CONFIG ════════════════════════════════════════════════════════════ */
+// Default password hash: SHA-256 of "TanyaAdmin2026!"
+// Change via the "Change Password" section in the app.
+var DEFAULT_PW_HASH = '3fcda8cfe7972fcd0d19e50f3819efc5ba73f175ca7c6e0a53b3849cba16940d';
+
+/* ═══ STATE ═════════════════════════════════════════════════════════════ */
+var content = {};
+var pendingImages = {};
+
+/* ═══ BOOT ══════════════════════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', function () {
+  // Check if already logged in
+  if (sessionStorage.getItem('tanya_admin_ok')) {
+    bootApp();
+  }
+  // Enter key on password field
+  document.getElementById('pw-input').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') doLogin();
+  });
+});
+
+/* ═══ AUTH ══════════════════════════════════════════════════════════════ */
+async function doLogin() {
+  var pw = document.getElementById('pw-input').value;
+  var hash = await sha256(pw);
+  var stored = localStorage.getItem('tanya_pw_hash') || DEFAULT_PW_HASH;
+  if (hash === stored) {
+    sessionStorage.setItem('tanya_admin_ok', '1');
+    document.getElementById('login-err').style.display = 'none';
+    bootApp();
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+    document.getElementById('pw-input').select();
+  }
+}
+
+function doLogout() {
+  sessionStorage.removeItem('tanya_admin_ok');
+  location.reload();
+}
+
+async function changePassword() {
+  var p1 = document.getElementById('new-pw').value;
+  var p2 = document.getElementById('new-pw2').value;
+  var err = document.getElementById('pw-change-err');
+  err.style.display = 'none';
+  if (!p1 || p1.length < 8) { err.textContent = 'Password must be at least 8 characters.'; err.style.display='block'; return; }
+  if (p1 !== p2) { err.textContent = 'Passwords do not match.'; err.style.display='block'; return; }
+  var h = await sha256(p1);
+  localStorage.setItem('tanya_pw_hash', h);
+  document.getElementById('new-pw').value = '';
+  document.getElementById('new-pw2').value = '';
+  toast('Password updated successfully');
+}
+
+async function sha256(msg) {
+  var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+/* ═══ BOOT APP ══════════════════════════════════════════════════════════ */
+function bootApp() {
+  document.getElementById('login-screen').style.display = 'none';
+  var app = document.getElementById('app');
+  app.classList.add('visible');
+  loadSettings();
+  fetchContent();
+}
+
+/* ═══ NAVIGATION ════════════════════════════════════════════════════════ */
+function showSection(name, el) {
+  document.querySelectorAll('.section-panel').forEach(function (p) { p.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function (n) { n.classList.remove('active'); });
+  document.getElementById('sec-' + name).classList.add('active');
+  el.classList.add('active');
+  document.getElementById('topbar-page').textContent = el.querySelector('svg').nextSibling.textContent.trim();
+}
+
+/* ═══ SETTINGS ══════════════════════════════════════════════════════════ */
+function loadSettings() {
+  var s = JSON.parse(localStorage.getItem('tanya_gh') || '{}');
+  setValue('gh-owner', s.owner || '');
+  setValue('gh-repo', s.repo || '');
+  setValue('gh-branch', s.branch || 'main');
+  setValue('gh-pat', s.pat || '');
+}
+
+function saveSettings() {
+  var s = {
+    owner: val('gh-owner'),
+    repo: val('gh-repo'),
+    branch: val('gh-branch') || 'main',
+    pat: val('gh-pat')
+  };
+  localStorage.setItem('tanya_gh', JSON.stringify(s));
+  toast('GitHub settings saved');
+}
+
+function getSettings() {
+  return JSON.parse(localStorage.getItem('tanya_gh') || '{}');
+}
+
+/* ═══ FETCH CONTENT ═════════════════════════════════════════════════════ */
+function fetchContent() {
+  // Try to load from GitHub API first (most up to date)
+  var s = getSettings();
+  if (s.owner && s.repo && s.pat) {
+    fetchFromGitHub(s).catch(function() { loadFallback(); });
+  } else {
+    loadFallback();
+  }
+}
+
+function fetchFromGitHub(s) {
+  var url = 'https://api.github.com/repos/' + s.owner + '/' + s.repo + '/contents/content.json?ref=' + (s.branch || 'main');
+  return fetch(url, { headers: { 'Authorization': 'Bearer ' + s.pat, 'Accept': 'application/vnd.github.v3+json' }})
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.content) {
+        content = JSON.parse(atob(data.content.replace(/\n/g,'')));
+        populateForms();
+        setStatus('ok', 'Connected');
+      }
+    });
+}
+
+function loadFallback() {
+  // Try fetching from same origin (works when admin is in repo root /admin/)
+  fetch('../content.json?v=' + Date.now())
+    .then(function(r) { return r.json(); })
+    .then(function(data) { content = data; populateForms(); setStatus('ok', 'Loaded'); })
+    .catch(function() {
+      // Load defaults
+      content = getDefaultContent();
+      populateForms();
+      setStatus('', 'Using defaults');
+    });
+}
+
+/* ═══ POPULATE FORMS ════════════════════════════════════════════════════ */
+function populateForms() {
+  var s = content.site || {};
+  var c = content.contact || {};
+  var h = content.hero || {};
+  var w = content.why || {};
+  var ct = content.cta || {};
+  var hr = content.hours || {};
+
+  setValue('site-name', s.name);
+  setValue('site-tagline', s.tagline);
+  setValue('site-footer', s.footer_copy);
+
+  setValue('ct-phone', c.phone_display);
+  setValue('ct-phone-href', c.phone_href);
+  setValue('ct-whatsapp', c.whatsapp_number);
+  setValue('ct-email', c.email);
+  setValue('ct-address', c.address);
+
+  setValue('hr-weekdays', hr.weekdays);
+  setValue('hr-saturday', hr.saturday);
+
+  setValue('hero-tag', h.tag);
+  setValue('hero-h1', h.heading_line1);
+  setValue('hero-h2', h.heading_line2);
+  setValue('hero-sub', h.subtext);
+
+  setValue('why-h', w.heading);
+  setValue('why-body', w.body);
+
+  setValue('cta-h', ct.heading);
+  setValue('cta-p', ct.body);
+
+  // Services
+  var svcList = document.getElementById('svc-list');
+  svcList.innerHTML = '';
+  (content.services || []).forEach(function(svc, i) {
+    var div = document.createElement('div');
+    div.className = 'svc-block';
+    div.innerHTML = '<div class="svc-block-label">Service ' + (i+1) + '</div>' +
+      '<div class="field"><label>Title</label><input type="text" id="svc-t-' + i + '" /></div>' +
+      '<div class="field"><label>Description</label><textarea id="svc-d-' + i + '" rows="2"></textarea></div>';
+    svcList.appendChild(div);
+    setValue('svc-t-' + i, svc.title);
+    setValue('svc-d-' + i, svc.description);
+  });
+
+  // Why points
+  var wList = document.getElementById('why-points-list');
+  wList.innerHTML = '';
+  (w.points || []).forEach(function(pt, i) {
+    var div = document.createElement('div');
+    div.className = 'svc-block';
+    div.innerHTML = '<div class="svc-block-label">Point ' + (i+1) + '</div>' +
+      '<div class="field"><label>Title</label><input type="text" id="why-pt-t-' + i + '" /></div>' +
+      '<div class="field"><label>Body</label><textarea id="why-pt-b-' + i + '" rows="2"></textarea></div>';
+    wList.appendChild(div);
+    setValue('why-pt-t-' + i, pt.title);
+    setValue('why-pt-b-' + i, pt.body);
+  });
+
+  // Steps
+  var sList = document.getElementById('steps-list');
+  sList.innerHTML = '<div class="card-title">Steps</div>';
+  (content.steps || []).forEach(function(step, i) {
+    var div = document.createElement('div');
+    div.className = 'svc-block';
+    div.innerHTML = '<div class="svc-block-label">Step ' + (i+1) + '</div>' +
+      '<div class="field"><label>Title</label><input type="text" id="step-t-' + i + '" /></div>' +
+      '<div class="field"><label>Description</label><textarea id="step-b-' + i + '" rows="2"></textarea></div>';
+    sList.appendChild(div);
+    setValue('step-t-' + i, step.title);
+    setValue('step-b-' + i, step.body);
+  });
+
+  // Testimonials
+  var t1 = (content.testimonials || [])[0] || {};
+  setValue('t1-text', t1.text);
+  setValue('t1-name', t1.name);
+  setValue('t1-role', t1.role);
+}
+
+/* ═══ COLLECT FORM DATA ═════════════════════════════════════════════════ */
+function collectContent() {
+  var c = JSON.parse(JSON.stringify(content)); // deep clone
+
+  c.site = {
+    name: val('site-name'),
+    tagline: val('site-tagline'),
+    footer_copy: val('site-footer')
+  };
+
+  c.contact = {
+    phone_display: val('ct-phone'),
+    phone_href: val('ct-phone-href'),
+    whatsapp_number: val('ct-whatsapp'),
+    email: val('ct-email'),
+    address: val('ct-address')
+  };
+
+  c.hours = {
+    weekdays: val('hr-weekdays'),
+    saturday: val('hr-saturday')
+  };
+
+  c.hero = {
+    tag: val('hero-tag'),
+    heading_line1: val('hero-h1'),
+    heading_line2: val('hero-h2'),
+    subtext: val('hero-sub')
+  };
+
+  // Services
+  c.services = (c.services || []).map(function(_, i) {
+    return { title: val('svc-t-' + i), description: val('svc-d-' + i) };
+  });
+
+  c.why = {
+    heading: val('why-h'),
+    body: val('why-body'),
+    points: (c.why && c.why.points || []).map(function(_, i) {
+      return { title: val('why-pt-t-' + i), body: val('why-pt-b-' + i) };
+    })
+  };
+
+  c.steps = (c.steps || []).map(function(_, i) {
+    return { title: val('step-t-' + i), body: val('step-b-' + i) };
+  });
+
+  c.testimonials = [{
+    text: val('t1-text'),
+    name: val('t1-name'),
+    role: val('t1-role')
+  }];
+
+  c.cta = {
+    heading: val('cta-h'),
+    body: val('cta-p')
+  };
+
+  return c;
+}
+
+/* ═══ PUBLISH ═══════════════════════════════════════════════════════════ */
+async function publishChanges() {
+  var s = getSettings();
+  if (!s.owner || !s.repo || !s.pat) {
+    toast('⚠ Please configure GitHub Settings first.', true);
+    showSection('settings', document.querySelector('.nav-item:last-of-type'));
+    return;
+  }
+
+  var btn = document.querySelector('.btn-publish');
+  btn.textContent = 'Publishing…';
+  btn.disabled = true;
+
+  try {
+    var newContent = collectContent();
+    var jsonStr = JSON.stringify(newContent, null, 2);
+    var encoded = btoa(unescape(encodeURIComponent(jsonStr)));
+
+    // Get current SHA of content.json
+    var sha = await getFileSHA(s, 'content.json');
+
+    // PUT new content
+    var body = {
+      message: 'CMS: update content.json',
+      content: encoded,
+      branch: s.branch || 'main'
+    };
+    if (sha) body.sha = sha;
+
+    var resp = await fetch(
+      'https://api.github.com/repos/' + s.owner + '/' + s.repo + '/contents/content.json',
+      {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'Bearer ' + s.pat,
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.github.v3+json'
+        },
+        body: JSON.stringify(body)
+      }
+    );
+
+    if (!resp.ok) {
+      var err = await resp.json();
+      throw new Error(err.message || 'GitHub API error ' + resp.status);
+    }
+
+    content = newContent;
+    setStatus('ok', 'Published ✓');
+    toast('Changes published! Site will update in ~1 minute.');
+  } catch(e) {
+    toast('Error: ' + e.message, true);
+    setStatus('err', 'Failed');
+  } finally {
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Publish Changes';
+    btn.disabled = false;
+  }
+}
+
+async function getFileSHA(s, path) {
+  try {
+    var r = await fetch(
+      'https://api.github.com/repos/' + s.owner + '/' + s.repo + '/contents/' + path + '?ref=' + (s.branch || 'main'),
+      { headers: { 'Authorization': 'Bearer ' + s.pat, 'Accept': 'application/vnd.github.v3+json' }}
+    );
+    if (!r.ok) return null;
+    var data = await r.json();
+    return data.sha || null;
+  } catch(e) { return null; }
+}
+
+/* ═══ IMAGE UPLOAD ══════════════════════════════════════════════════════ */
+function previewImage(input, previewId, areaId) {
+  var file = input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var img = document.getElementById(previewId);
+    img.src = e.target.result;
+    img.style.display = 'block';
+    var area = document.getElementById(areaId);
+    area.querySelector('p').textContent = file.name;
+  };
+  reader.readAsDataURL(file);
+}
+
+async function uploadImage(inputId, filename) {
+  var s = getSettings();
+  if (!s.owner || !s.repo || !s.pat) {
+    toast('⚠ Configure GitHub Settings first.', true);
+    return;
+  }
+  var input = document.getElementById(inputId);
+  if (!input.files[0]) { toast('Please select an image first.', true); return; }
+
+  var file = input.files[0];
+  var base64 = await fileToBase64(file);
+  var sha = await getFileSHA(s, filename);
+
+  var body = {
+    message: 'CMS: replace ' + filename,
+    content: base64,
+    branch: s.branch || 'main'
+  };
+  if (sha) body.sha = sha;
+
+  try {
+    var resp = await fetch(
+      'https://api.github.com/repos/' + s.owner + '/' + s.repo + '/contents/' + filename,
+      {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'Bearer ' + s.pat,
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.github.v3+json'
+        },
+        body: JSON.stringify(body)
+      }
+    );
+    if (!resp.ok) { var e = await resp.json(); throw new Error(e.message); }
+    toast(filename + ' uploaded! Site will update in ~1 minute.');
+  } catch(e) {
+    toast('Upload failed: ' + e.message, true);
+  }
+}
+
+function fileToBase64(file) {
+  return new Promise(function(resolve, reject) {
+    var r = new FileReader();
+    r.onload = function(e) {
+      // strip data URL prefix, keep only base64
+      resolve(e.target.result.split(',')[1]);
+    };
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
+}
+
+/* ═══ UTILS ═════════════════════════════════════════════════════════════ */
+function val(id) {
+  var el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+function setValue(id, v) {
+  var el = document.getElementById(id);
+  if (el && v !== undefined && v !== null) el.value = v;
+}
+
+function setStatus(type, msg) {
+  var el = document.getElementById('pub-status');
+  el.textContent = msg;
+  el.className = 'topbar-status' + (type ? ' ' + type : '');
+}
+
+function toast(msg, isErr) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isErr ? ' error' : '');
+  clearTimeout(t._tid);
+  t._tid = setTimeout(function() { t.className = 'toast'; }, 4000);
+}
+
+function getDefaultContent() {
+  return {
+    site:{ name:'TanyaMuch Wellness', tagline:'Your mental health is our concern.', footer_copy:'© 2026 TanyaMuch Wellness Mental Clinic.' },
+    contact:{ phone_display:'0715 472 411', phone_href:'2630715472411', whatsapp_number:'2630715472411', email:'enquiries@tanyamuchwellness.co.zw', address:'1074 Cnr Masotsha Ndhlovu/6th Avenue, Parktown, Waterfalls, Harare, Zimbabwe' },
+    hours:{ weekdays:'Monday – Friday: 8:00 AM – 6:00 PM', saturday:'Saturday: By appointment' },
+    hero:{ tag:'Now accepting new clients', heading_line1:'Your mental health', heading_line2:'is our concern.', subtext:'' },
+    services:[
+      {title:'Individual Counselling',description:''},
+      {title:'Couples & Relationship Therapy',description:''},
+      {title:'Depression Therapy',description:''},
+      {title:'Marital Counselling',description:''},
+      {title:'Trauma & Grief Counselling',description:''},
+      {title:'Personal Growth & Wellness',description:''}
+    ],
+    why:{ heading:'', body:'', points:[{title:'',body:''},{title:'',body:''},{title:'',body:''}] },
+    steps:[{title:'',body:''},{title:'',body:''},{title:'',body:''},{title:'',body:''}],
+    testimonials:[{text:'',name:'',role:''}],
+    cta:{ heading:'', body:'' }
+  };
+}
+</script>
+</body>
+</html>
