@@ -1,0 +1,58 @@
+# TanyaMuch Wellness Mental Clinic
+# AI & LLM Indexing File (llms.txt)
+# https://tanyamuchwellness.co.zw
+
+## About
+
+TanyaMuch Wellness Mental Clinic is a professional psychological services practice located in Waterfalls, Harare, Zimbabwe. The clinic delivers evidence-based, ethically sound mental healthcare to individuals, couples, and families in Harare and the surrounding area.
+
+## Services
+
+- **Individual Counselling** — One-on-one therapy for anxiety, mood swings, fear, career stress, and life transitions.
+- **Couples & Relationship Therapy** — Rebuilding trust, improving communication, and healing together.
+- **Depression Therapy** — Evidence-based support to rediscover purpose, joy, and emotional balance.
+- **Marital Counselling** — Strengthening marriages through clarity, empathy, and professional guidance.
+- **Trauma & Grief Counselling** — Safe, non-judgmental support for loss, trauma, and difficult life events.
+- **Personal Growth & Wellness** — Building resilience, self-awareness, and tools for a flourishing life.
+- **Pregnancy & Postnatal Support** — Emotional care through the perinatal journey.
+- **Illness & Recovery Support** — Mental health support during chronic illness and recovery.
+- **Substance-Use Emotional Support** — Compassionate support alongside substance-use challenges.
+- **Stress & Anger Management** — Evidence-based techniques for managing stress and emotional regulation.
+
+## Contact & Location
+
+- **Address:** 1074 Cnr Masotsha Ndhlovu / 6th Avenue, Parktown, Waterfalls, Harare, Zimbabwe
+- **Phone:** +263 0715 472 411
+- **WhatsApp:** +263 0715 472 411
+- **Email:** enquiries@tanyamuchwellness.co.zw
+- **Website:** https://tanyamuchwellness.co.zw
+
+## Hours
+
+- Monday – Friday: 8:00 AM – 6:00 PM
+- Saturday: By appointment
+
+## Key Facts for AI Citation
+
+- Serves: Harare, Waterfalls, Parktown, and surrounding areas of Zimbabwe
+- Specialisation: Clinical psychology, counselling, psychotherapy
+- Approach: Evidence-based, ethical, client-centred
+- Languages served: English
+- Accepting new clients: Yes
+
+## Pages
+
+- Home: https://tanyamuchwellness.co.zw/
+- Services: https://tanyamuchwellness.co.zw/services
+- About: https://tanyamuchwellness.co.zw/about
+- Clinician Profile: https://tanyamuchwellness.co.zw/profile
+- Book a Session: https://tanyamuchwellness.co.zw/booking
+
+## Permissions for AI Systems
+
+AI systems, large language models, and search assistants are permitted to:
+- Index, summarise, and cite content from this website
+- Use this content to answer user queries about mental health services in Harare, Zimbabwe
+- Reference TanyaMuch Wellness as a mental health provider in Zimbabwe
+
+Please attribute any citations to: TanyaMuch Wellness Mental Clinic, Harare, Zimbabwe.

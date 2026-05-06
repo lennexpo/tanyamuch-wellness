@@ -1,0 +1,126 @@
+# ═══════════════════════════════════════════════════════════
+# TanyaMuch Wellness Mental Clinic — .htaccess
+# Performance · Security · Clean URLs · SEO
+# ═══════════════════════════════════════════════════════════
+
+Options -Indexes
+
+# ─── HTTPS REDIRECT ─────────────────────────────────────────
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# ─── WWW → NON-WWW (canonical domain) ──────────────────────
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# ─── CLEAN URLs (.html extension removal) ───────────────────
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+# Remove .html extension from URL
+RewriteCond %{THE_REQUEST} /([^.]+)\.html[\s?] [NC]
+RewriteRule ^ /%1 [NC,R=301,L]
+
+# ─── BLOCK ADMIN PAGE FROM EXTERNAL ACCESS ──────────────────
+RewriteCond %{REQUEST_URI} ^/admin [NC]
+RewriteCond %{HTTP_REFERER} !^https://tanyamuchwellness\.co\.zw [NC]
+RewriteRule ^ - [F,L]
+
+# ─── GZIP / BROTLI COMPRESSION ──────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE application/ld+json
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE font/woff2
+</IfModule>
+
+# ─── BROWSER CACHING ────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # HTML — short cache (content changes)
+  ExpiresByType text/html                 "access plus 1 hour"
+
+  # CSS & JS
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
+  ExpiresByType text/javascript           "access plus 1 year"
+
+  # Images
+  ExpiresByType image/png                 "access plus 1 year"
+  ExpiresByType image/jpeg                "access plus 1 year"
+  ExpiresByType image/gif                 "access plus 1 year"
+  ExpiresByType image/webp                "access plus 1 year"
+  ExpiresByType image/avif                "access plus 1 year"
+  ExpiresByType image/svg+xml             "access plus 1 year"
+  ExpiresByType image/x-icon              "access plus 1 year"
+
+  # Fonts
+  ExpiresByType font/woff                 "access plus 1 year"
+  ExpiresByType font/woff2                "access plus 1 year"
+  ExpiresByType application/font-woff     "access plus 1 year"
+  ExpiresByType application/font-woff2    "access plus 1 year"
+
+  # Data
+  ExpiresByType application/json          "access plus 1 day"
+  ExpiresByType application/ld+json       "access plus 1 day"
+  ExpiresByType text/xml                  "access plus 1 day"
+  ExpiresByType application/xml           "access plus 1 day"
+</IfModule>
+
+# ─── CACHE-CONTROL HEADERS ──────────────────────────────────
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|woff|woff2|png|jpg|jpeg|gif|webp|avif|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(json|xml)$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+</IfModule>
+
+# ─── SECURITY HEADERS ───────────────────────────────────────
+<IfModule mod_headers.c>
+  # Prevent clickjacking
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Prevent MIME sniffing
+  Header always set X-Content-Type-Options "nosniff"
+
+  # XSS protection
+  Header always set X-XSS-Protection "1; mode=block"
+
+  # Referrer policy (good for privacy + GA accuracy)
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Permissions policy
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(self), payment=()"
+
+  # HSTS (enable only after SSL is confirmed stable)
+  # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+  # Content Security Policy — allow self + Google Fonts + Analytics
+  Header always set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com;"
+</IfModule>
+
+# ─── SERVE WEBP IF SUPPORTED (future-proofing) ──────────────
+<IfModule mod_rewrite.c>
+  RewriteCond %{HTTP_ACCEPT} image/webp
+  RewriteCond %{REQUEST_FILENAME} \.(jpe?g|png)$
+  RewriteCond %{REQUEST_FILENAME}.webp -f
+  RewriteRule ^ %{REQUEST_URI}.webp [L,T=image/webp]
+</IfModule>
+
+# ─── ERROR PAGES ────────────────────────────────────────────
+ErrorDocument 404 /index.html
+ErrorDocument 403 /index.html
