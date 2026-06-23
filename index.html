@@ -378,6 +378,12 @@ img { max-width:100%; display:block }
   text-transform:uppercase; margin-bottom:1.5rem;
   box-shadow:0 2px 12px rgba(74,124,111,.08);
 }
+.hero-tag.long {
+  align-items:flex-start; text-transform:none; letter-spacing:normal;
+  font-weight:500; font-size:.85rem; line-height:1.55;
+  border-radius:18px; padding:.75rem 1.25rem; max-width:540px;
+}
+.hero-tag.long .live { margin-top:.45rem; flex-shrink:0 }
 .hero-tag .live { width:7px; height:7px; border-radius:50%; background:var(--sage); animation:blink 2s infinite }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
 .hero-h1 {
@@ -736,9 +742,9 @@ footer {
     <div class="hero-dot-grid"></div>
   </div>
   <div class="hero-content">
-    <div class="hero-tag">
+    <div class="hero-tag long">
       <span class="live"></span>
-      Now accepting new clients — Waterfalls, Harare
+      We are located in the quiet, secure, and peaceful heart of Harare's Waterfalls suburb. Now accepting new clients — virtual and physical — on cash and AHFoZ registered Medical Aid Societies.
     </div>
     <h1 class="hero-h1">
       Your mental health

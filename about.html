@@ -225,7 +225,10 @@ body{font-family:'Inter',sans-serif;background:var(--off-white);color:var(--ink)
 .a-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;color:var(--sage);line-height:1;min-width:2.5rem}
 .a-text h4{font-weight:500;color:var(--ink);margin-bottom:.2rem;font-size:.92rem}
 .a-text p{font-size:.83rem;color:var(--slate);line-height:1.6}
-.commitment{background:var(--ink);border-radius:var(--r-xl);padding:2rem 1.75rem;margin-top:1.5rem}
+.commitment{position:relative;background:var(--ink);border-radius:var(--r-xl);padding:2rem 1.75rem;margin-top:1.5rem;overflow:hidden}
+.commitment::before{content:'';position:absolute;inset:0;background-image:url('images/humanity.png');background-size:cover;background-position:center;opacity:.22;z-index:0}
+.commitment::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(13,17,15,.92) 0%,rgba(13,17,15,.85) 60%,rgba(13,17,15,.95) 100%);z-index:0}
+.commitment h3,.commitment>p,.commit-list{position:relative;z-index:1}
 .commitment h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:white;font-weight:400;margin-bottom:.5rem}
 .commitment>p{color:rgba(255,255,255,.5);font-size:.85rem;line-height:1.75;margin-bottom:1.5rem}
 .commit-list{display:flex;flex-direction:column;gap:.7rem}
@@ -426,10 +429,10 @@ footer{background:var(--ink);padding:2.5rem 1.5rem;display:flex;flex-direction:c
         <div class="eyebrow">Our Approach</div>
         <h2 class="section-heading">How we <em>deliver care</em></h2>
         <div class="approach-list">
-          <div class="aitem reveal"><div class="a-num">01</div><div class="a-text"><h4>Person-Centred Therapy</h4><p>Your needs, your pace, your goals, everything revolves around you.</p></div></div>
-          <div class="aitem reveal"><div class="a-num">02</div><div class="a-text"><h4>Collaborative Treatment Planning</h4><p>You're an active partner in designing your therapy journey, not a passive recipient.</p></div></div>
-          <div class="aitem reveal"><div class="a-num">03</div><div class="a-text"><h4>Culturally Sensitive Care</h4><p>Our approach integrates the Zimbabwean context with international clinical best practice.</p></div></div>
-          <div class="aitem reveal"><div class="a-num">04</div><div class="a-text"><h4>Continuous Evaluation</h4><p>We track your progress and adapt as needed, because healing isn't linear.</p></div></div>
+          <div class="aitem reveal"><div class="a-num">01</div><div class="a-text"><h4>Scientific</h4><p>Evidence-informed and clinically grounded, every method we use is backed by research, not guesswork.</p></div></div>
+          <div class="aitem reveal"><div class="a-num">02</div><div class="a-text"><h4>Culturally Grounded</h4><p>Rooted in African wisdom, our care reflects the lived realities and traditions of the communities we serve.</p></div></div>
+          <div class="aitem reveal"><div class="a-num">03</div><div class="a-text"><h4>Clinically Applicable</h4><p>Practical, real-world tools built for modern practice, not just theory.</p></div></div>
+          <div class="aitem reveal"><div class="a-num">04</div><div class="a-text"><h4>Integrative</h4><p>Seamlessly works alongside Western, Eastern, and religious therapies, so care fits your life, not the other way around.</p></div></div>
         </div>
       </div>
       <div>
