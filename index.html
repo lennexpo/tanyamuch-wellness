@@ -380,8 +380,9 @@ img { max-width:100%; display:block }
 }
 .hero-tag.long {
   align-items:flex-start; text-transform:none; letter-spacing:normal;
-  font-weight:500; font-size:.85rem; line-height:1.55;
-  border-radius:18px; padding:.75rem 1.25rem; max-width:540px;
+  font-weight:500; font-size:.85rem; line-height:1.5;
+  border-radius:18px; padding:.65rem 1.1rem; max-width:540px;
+  margin-top:0; margin-bottom:1rem;
 }
 .hero-tag.long .live { margin-top:.45rem; flex-shrink:0 }
 .hero-tag .live { width:7px; height:7px; border-radius:50%; background:var(--sage); animation:blink 2s infinite }
@@ -393,8 +394,8 @@ img { max-width:100%; display:block }
   color:var(--ink); margin-bottom:1.25rem;
 }
 .hero-h1 em { font-style:italic; color:var(--sage); display:block }
-.hero-p { font-size:.97rem; color:var(--ink-3); line-height:1.85; margin-bottom:2.25rem; max-width:460px }
-.hero-btns { display:flex; flex-direction:column; gap:.75rem; margin-bottom:2.5rem }
+.hero-p { font-size:.97rem; color:var(--ink-3); line-height:1.85; margin-bottom:1.85rem; max-width:460px }
+.hero-btns { display:flex; flex-direction:column; gap:.75rem; margin-bottom:1.5rem }
 .btn-sage {
   display:flex; align-items:center; justify-content:center; gap:.5rem;
   background:var(--sage); color:white; padding:1rem 2rem;
@@ -742,10 +743,6 @@ footer {
     <div class="hero-dot-grid"></div>
   </div>
   <div class="hero-content">
-    <div class="hero-tag long">
-      <span class="live"></span>
-      We are located in the quiet, secure, and peaceful heart of Harare's Waterfalls suburb. Now accepting new clients — virtual and physical — on cash and AHFoZ registered Medical Aid Societies.
-    </div>
     <h1 class="hero-h1">
       Your mental health
       <em>is our concern.</em>
@@ -757,6 +754,10 @@ footer {
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
       <a href="services" class="btn-outline">Explore Services</a>
+    </div>
+    <div class="hero-tag long">
+      <span class="live"></span>
+      We are located in the quiet, secure, and peaceful heart of Harare's Waterfalls suburb. Now accepting new clients — virtual and physical — on cash and AHFoZ registered Medical Aid Societies.
     </div>
     <div class="hero-pills">
       <div class="pill">
