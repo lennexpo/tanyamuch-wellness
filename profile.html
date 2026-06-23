@@ -233,6 +233,13 @@ body{font-family:'Inter',sans-serif;background:var(--off-white);color:var(--ink)
 /* SPECIALISATIONS */
 .spec-section{background:var(--sand);padding:4rem 1.5rem}
 .spec-inner{max-width:1200px;margin:0 auto}
+.outreach-section{padding:4rem 1.5rem}
+.outreach-inner{max-width:1200px;margin:0 auto}
+.outreach-grid{display:grid;grid-template-columns:1fr;gap:1.25rem;margin-top:2rem}
+.outreach-card{position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:4/3;background:var(--sand)}
+.outreach-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.outreach-card:hover img{transform:scale(1.04)}
+.outreach-cap{position:absolute;left:0;right:0;bottom:0;padding:1rem 1.1rem;background:linear-gradient(to top,rgba(13,17,15,.82),transparent);color:white;font-size:.82rem;font-weight:500}
 .spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-top:2rem}
 .spec-card{background:white;border-radius:var(--r-lg);padding:1.4rem;border:1px solid rgba(74,124,111,.09);display:flex;align-items:center;gap:1rem;transition:box-shadow .25s}
 .spec-card:hover{box-shadow:0 8px 32px rgba(74,124,111,.1)}
@@ -281,10 +288,11 @@ footer{background:var(--ink);padding:2.5rem 1.5rem;display:flex;flex-direction:c
 .reveal.in{opacity:1;transform:none}
 
 @media(min-width:600px){
-  .section,.spec-section,.phil-section,.cta-strip{padding:5rem 2rem}
+  .section,.spec-section,.phil-section,.cta-strip,.outreach-section{padding:5rem 2rem}
   .page-hdr{padding:calc(var(--nav-h) + 5.5rem) 2rem 4rem}
   .spec-grid{grid-template-columns:repeat(3,1fr)}
   .detail-cards{display:grid;grid-template-columns:1fr 1fr}
+  .outreach-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(min-width:900px){
   :root{--nav-h:72px}
@@ -344,7 +352,8 @@ footer{background:var(--ink);padding:2.5rem 1.5rem;display:flex;flex-direction:c
   }
   #nav .nav-book:hover{background:rgba(255,255,255,.28) !important}
   .page-hdr{padding:calc(var(--nav-h) + 6rem) 4rem 5rem}
-  .section,.spec-section,.phil-section,.cta-strip{padding:7rem 4rem}
+  .section,.spec-section,.phil-section,.cta-strip,.outreach-section{padding:7rem 4rem}
+  .outreach-grid{grid-template-columns:repeat(3,1fr)}
   .bio-grid{display:grid;grid-template-columns:5fr 4fr;gap:5rem;align-items:start}
   .photo-placeholder{margin-bottom:0}
   .detail-cards{grid-template-columns:1fr}
@@ -418,6 +427,29 @@ footer{background:var(--ink);padding:2.5rem 1.5rem;display:flex;flex-direction:c
           <div class="drow"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>Continuous Professional Development</div>
           <div class="drow"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>Evidence-Based Methods</div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMMUNITY & OUTREACH -->
+<div class="outreach-section">
+  <div class="outreach-inner">
+    <div class="eyebrow">Beyond the Clinic</div>
+    <h2 class="section-heading">Community talks <em>&amp; workshops</em></h2>
+    <p class="body-p" style="max-width:640px;margin-top:.75rem">Mental health care extends beyond the consulting room. Our clinician regularly facilitates public talks and workshops, helping organisations and communities across Harare build awareness around grief, stress, and emotional wellbeing.</p>
+    <div class="outreach-grid">
+      <div class="outreach-card reveal">
+        <img src="images/presentation.jpeg" alt="Facilitating a workshop on the stages of grief" loading="lazy">
+        <div class="outreach-cap">Workshop — Understanding the Stages of Grief</div>
+      </div>
+      <div class="outreach-card reveal">
+        <img src="images/workshop.jpeg" alt="Community mental health workshop in Harare" loading="lazy">
+        <div class="outreach-cap">Community Mental Health Workshop, Harare</div>
+      </div>
+      <div class="outreach-card reveal">
+        <img src="images/work-shop.jpeg" alt="Speaking at a community mental health event" loading="lazy">
+        <div class="outreach-cap">Speaking at a Community Outreach Event</div>
       </div>
     </div>
   </div>

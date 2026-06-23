@@ -340,6 +340,11 @@ body{font-family:'Inter',sans-serif;background:var(--off-white);color:var(--ink)
 .svc p{font-size:.85rem;color:var(--slate);line-height:1.75}
 .svc-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
 .svc-tag{background:var(--sage-xl);color:var(--sage-d);font-size:.68rem;font-weight:500;padding:.25rem .65rem;border-radius:20px;border:1px solid rgba(74,124,111,.12)}
+.svc-photo{padding:0;display:flex;flex-direction:column}
+.svc-photo-img{width:100%;aspect-ratio:16/10;overflow:hidden;border-radius:var(--r-lg) var(--r-lg) 0 0}
+.svc-photo-img img{width:100%;height:100%;object-fit:cover;display:block}
+.svc-photo-body{padding:1.5rem 1.75rem 1.75rem}
+.svc-photo .svc-icon{margin-top:-2.4rem;position:relative;z-index:1;background:white;box-shadow:0 6px 20px rgba(0,0,0,.1)}
 
 /* PROCESS TIMELINE */
 .process-section{background:var(--sand);padding:4rem 1.5rem}
@@ -521,11 +526,14 @@ footer{background:var(--ink);padding:2.5rem 1.5rem;display:flex;flex-direction:c
     </div>
 
     <div class="svc-grid">
-      <div class="svc reveal">
-        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44l-1.9-11.4A2.5 2.5 0 0 1 7.6 5.1L9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44l1.9-11.4a2.5 2.5 0 0 0-1.96-2.56L14.5 2z"/></svg></div>
-        <h3>Depression Therapy</h3>
-        <p>Depression is more than feeling sad or having a bad day, it's a mental health condition that affects mood, thoughts, energy, and daily functioning. We help you understand it and find your path back to balance.</p>
-        <div class="svc-tags"><span class="svc-tag">Persistent sadness</span><span class="svc-tag">Loss of interest</span><span class="svc-tag">Fatigue</span><span class="svc-tag">Sleep disturbances</span><span class="svc-tag">Appetite changes</span><span class="svc-tag">Hopelessness</span><span class="svc-tag">Worthlessness</span><span class="svc-tag">Difficulty concentrating</span></div>
+      <div class="svc svc-photo reveal">
+        <div class="svc-photo-img"><img src="images/depression-therapy.jpeg" alt="A counsellor comforting a client during a depression therapy session" loading="lazy"></div>
+        <div class="svc-photo-body">
+          <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44l-1.9-11.4A2.5 2.5 0 0 1 7.6 5.1L9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44l1.9-11.4a2.5 2.5 0 0 0-1.96-2.56L14.5 2z"/></svg></div>
+          <h3>Depression Therapy</h3>
+          <p>Depression is more than feeling sad or having a bad day, it's a mental health condition that affects mood, thoughts, energy, and daily functioning. We help you understand it and find your path back to balance.</p>
+          <div class="svc-tags"><span class="svc-tag">Persistent sadness</span><span class="svc-tag">Loss of interest</span><span class="svc-tag">Fatigue</span><span class="svc-tag">Sleep disturbances</span><span class="svc-tag">Appetite changes</span><span class="svc-tag">Hopelessness</span><span class="svc-tag">Worthlessness</span><span class="svc-tag">Difficulty concentrating</span></div>
+        </div>
       </div>
       <div class="svc reveal">
         <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
