@@ -353,6 +353,15 @@ footer{background:var(--ink);padding:2.5rem 1.5rem;display:flex;flex-direction:c
   footer{flex-direction:row;justify-content:space-between;align-items:center;padding:2.5rem 4rem;flex-wrap:wrap}
   .footer-copy{margin-left:auto}
 }
+.vm-section{padding:5rem 1.5rem;background:var(--sage-xl)}
+.vm-inner{max-width:1200px;margin:0 auto}
+.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem}
+.vm-card{background:var(--white);border-radius:var(--r-lg);padding:2.5rem;box-shadow:0 10px 40px rgba(46,90,80,.08);border:1px solid var(--sand-d)}
+.vm-card .vm-icon{width:52px;height:52px;border-radius:50%;background:var(--sage-xl);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
+.vm-card .vm-icon svg{width:26px;height:26px;stroke:var(--sage-d);fill:none;stroke-width:2}
+.vm-card h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--ink-2);margin-bottom:.75rem}
+.vm-card p{font-size:1.02rem;line-height:1.7;color:var(--ink-3)}
+@media(max-width:768px){.vm-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -381,6 +390,25 @@ footer{background:var(--ink);padding:2.5rem 1.5rem;display:flex;flex-direction:c
 
 <div class="motto">
   <p>"Your mental health is our concern. <em>Do not suffer in silence</em> ,come and share. We listen."</p>
+</div>
+
+<div class="vm-section">
+  <div class="vm-inner">
+    <div class="eyebrow">What We Stand For</div>
+    <h2 class="section-heading">Our <em>vision &amp; mission</em></h2>
+    <div class="vm-grid">
+      <div class="vm-card reveal">
+        <div class="vm-icon"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>Vision Statement</h3>
+        <p>Empowering individuals and families to live mentally healthy, purposeful lives.</p>
+      </div>
+      <div class="vm-card reveal">
+        <div class="vm-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Mission Statement</h3>
+        <p>Tanya Much Wellness Mental Clinic delivers personalized, client-centered mental health services. We combine evidence-based therapy with cultural understanding to help clients build resilience, restore hope, and live fuller lives, creating a safe space for healing, equipping clients with practical tools for wellness.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="section">
