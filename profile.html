@@ -287,12 +287,65 @@ footer{background:var(--ink);padding:2.5rem 1.5rem;display:flex;flex-direction:c
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
 .reveal.in{opacity:1;transform:none}
 
+/* ===== MOBILE-FIRST FIXES ===== */
+
+/* Nav pill: ensure it doesn't clip on very small screens */
+#nav {
+  width: calc(100% - 1.5rem);
+  padding: 0 1rem;
+}
+
+/* Hero: more breathing room on mobile */
+.page-hdr {
+  padding: calc(var(--nav-h) + 3.5rem) 1.25rem 3rem;
+}
+
+/* H1: prevent overflow on narrow screens */
+.page-h1 {
+  font-size: clamp(2rem, 7vw, 4.5rem);
+  word-break: break-word;
+}
+
+/* Section horizontal padding: slightly tighter on mobile */
+.section, .spec-section, .phil-section, .cta-strip, .outreach-section {
+  padding: 3.5rem 1.25rem;
+}
+
+/* Practitioner image: full width on mobile, capped max */
+.bio-grid img[src*="practitioner"] {
+  max-width: 100% !important;
+  border-radius: 1rem;
+}
+
+/* Detail cards: single column on mobile, clean spacing */
+.dcard { padding: 1.25rem; }
+
+/* Spec grid: 2-col on mobile (was already 2-col, keep it) */
+.spec-card { padding: 1.1rem; gap: .75rem; }
+.spec-icon { width: 40px; height: 40px; min-width: 40px; border-radius: 10px; }
+.spec-icon svg { width: 18px; height: 18px; }
+
+/* Philosophy quote card: tighter on mobile */
+.quote-card { padding: 1.75rem 1.25rem; }
+.quote-text { font-size: 1.05rem; }
+
+/* CTA: tighter on mobile */
+.cta-h { font-size: clamp(1.75rem, 6vw, 3rem); }
+
+/* Outreach grid: single column on mobile */
+.outreach-grid { grid-template-columns: 1fr; margin-top: 1.5rem; }
+
+@media(min-width:480px){
+  .page-hdr{padding:calc(var(--nav-h) + 4rem) 1.5rem 3.5rem}
+  .outreach-grid{grid-template-columns:repeat(2,1fr)}
+}
+
 @media(min-width:600px){
   .section,.spec-section,.phil-section,.cta-strip,.outreach-section{padding:5rem 2rem}
   .page-hdr{padding:calc(var(--nav-h) + 5.5rem) 2rem 4rem}
+  #nav{width:calc(100% - 2.5rem);padding:0 1.5rem}
   .spec-grid{grid-template-columns:repeat(3,1fr)}
   .detail-cards{display:grid;grid-template-columns:1fr 1fr}
-  .outreach-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(min-width:900px){
   :root{--nav-h:72px}
